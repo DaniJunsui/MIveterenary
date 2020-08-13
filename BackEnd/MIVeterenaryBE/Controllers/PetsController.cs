@@ -30,10 +30,16 @@ namespace MIVeterenaryBE.Controllers
         [HttpGet]
         public async Task<List<Pet>> Get()
         {
+                // Get the list of al items & return them directly
+                return await GetPets();
+        }
+
+        [HttpGet("{employeeId}")]
+        public async Task<List<Pet>> GetByEmployeeId(int employeeId)
+        {
             // Get the list of al items & return them directly
             return await GetPets();
         }
-
         #endregion
 
 
@@ -48,7 +54,36 @@ namespace MIVeterenaryBE.Controllers
 
             // Database commands
             var cmd = this.MySqlDatabase.Connection.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"SELECT id, petTypeId, employeeId, name FROM Pets";
+            cmd.CommandText = @"CALL getAllPets();";
+
+
+            // Parse data from DB to model
+            using (var reader = await cmd.ExecuteReaderAsync())
+                while (await reader.ReadAsync())
+                {
+                    ret.Add(new Pet()
+                    {
+                        id = reader.GetFieldValue<int>(0),
+                        petTypeId = reader.GetFieldValue<int>(1),
+                        employeeId = reader.GetFieldValue<int>(2),
+                        name = reader.GetFieldValue<string>(3),
+                        petTypeName = reader.GetFieldValue<string>(4),
+                        employeeName = reader.GetFieldValue<string>(5)
+                    });
+                }
+
+            // Return list of items
+            return ret;
+        }
+
+        private async Task<List<Pet>> GetPetsByEmployeeId(int employeeId)
+        {
+            // Define the return list
+            var ret = new List<Pet>();
+
+            // Database commands
+            var cmd = this.MySqlDatabase.Connection.CreateCommand() as MySqlCommand;
+            cmd.CommandText = "CALL getPetByEmployeeId(" + employeeId + ");";
 
 
             // Parse data from DB to model

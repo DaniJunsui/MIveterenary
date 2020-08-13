@@ -5,4 +5,6 @@ export class EmployeeModel {
     firstName: string;
     lastName?: string;
     mediaInteractiveEmployee: boolean;
+
+    numberOfPets?: number;
 }

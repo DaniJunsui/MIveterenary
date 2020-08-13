@@ -1,11 +1,11 @@
-<h3>List of all Employees</h3>
+<h3>List of all Pets</h3>
 
 
 
 <div class="row">
 
     <div class="col-6 col-md-4 offset-md-1">
-        <button type="button" class="btn btn-success"> <i class="fa fa-plus-circle"></i> Add new employee</button>
+        <button type="button" class="btn btn-success"> <i class="fa fa-plus-circle"></i> Add new pet</button>
     </div>
 
     <div class="col-6 col-md-6">
@@ -34,24 +34,18 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>MI Employee</th>
-                    <th>Pets</th>
+                    <th>Pet Name</th>
+                    <th>Pet Type</th>
+                    <th>Employee</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <tr class="table-row" *ngFor="let emp of $employeeList | filter : 'name' : filterString; let i = index;">
-                    <th>{{emp.id}}</th>
-                    <th>{{emp.firstName}}</th>
-                    <th>{{emp.lastName}}</th>
-                    <th> <i class="fa" [ngClass]="{'fa-check-square':emp.mediaInteractiveEmployee, 
-                            'fa-square':!emp.mediaInteractiveEmployee }"></i>
-                    </th>
-                    <th>
-                        <button type="button" class="btn btn-sm btn-primary"[disabled]="emp.numberOfPets == 0">View {{emp.numberOfPets}} Pet{{emp.numberOfPets > 1 ? 's' : ''}}</button>
-                    </th>
+                <tr class="table-row"  *ngFor="let pet of $petList | filter : 'name' : filterString;">
+                    <th>{{pet.id}}</th>
+                    <th>{{pet.name}}</th>
+                    <th>{{pet.typeName}}</th>
+                    <th>{{pet.employeeName}}</th>
                     <th class="table-buttons">
                         <button type="button" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></button> &nbsp;
                         <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>

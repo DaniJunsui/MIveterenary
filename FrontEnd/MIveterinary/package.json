@@ -1,6 +1,6 @@
 {
   "name": "miveterinary",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve -o",
@@ -21,6 +21,7 @@
     "@angular/router": "~10.0.3",
     "@popperjs/core": "^2.4.4",
     "bootstrap": "^4.5.2",
+    "font-awesome": "^4.7.0",
     "jquery": "^3.5.1",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",

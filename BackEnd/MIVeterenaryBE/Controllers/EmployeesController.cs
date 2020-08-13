@@ -48,7 +48,7 @@ namespace MIVeterenaryBE.Controllers
 
             // Database commands
             var cmd = this.MySqlDatabase.Connection.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"SELECT id, firstName, lastName, mediaInteractiveEmployee FROM employees";
+            cmd.CommandText = @"CALL getAllEmployees();";
 
 
             // Parse data from DB to model
@@ -60,7 +60,8 @@ namespace MIVeterenaryBE.Controllers
                         id = reader.GetFieldValue<int>(0),
                         firstName = reader.GetFieldValue<string>(1),
                         lastName = reader.GetFieldValue<string>(2),
-                        mediaInteractiveEmployee = reader.GetFieldValue<bool>(3)
+                        mediaInteractiveEmployee = reader.GetFieldValue<bool>(3),
+                        numberOfPets = reader.GetFieldValue<Int64>(4)
                     });
                 }
 

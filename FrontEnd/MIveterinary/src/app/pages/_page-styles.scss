@@ -1,0 +1,14 @@
+// Set Option in Table styles
+.table-row {
+    .table-buttons {
+        padding: 8px;
+        opacity: 0;
+        transition: opacity ease 0.2s;
+    }
+
+    &:hover {
+        .table-buttons {
+            opacity: 1;
+        }
+    }
+}

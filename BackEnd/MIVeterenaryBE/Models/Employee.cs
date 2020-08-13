@@ -12,5 +12,6 @@ namespace MIVeterenaryBE.Models
         public string firstName { get; set; }
         public string lastName { get; set; }
         public bool mediaInteractiveEmployee { get; set; }
+        public Int64 numberOfPets { get; set; }
     }
 }
