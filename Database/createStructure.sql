@@ -29,6 +29,7 @@ CREATE TABLE `employees`
  `firstName`                varchar(45) NOT NULL ,
  `lastName`                 varchar(45) NOT NULL ,
  `mediaInteractiveEmployee` tinyint(1) NOT NULL ,
+ `deleted`                  int NOT NULL DEFAULT '0'
 
 PRIMARY KEY (`id`)
 );
@@ -40,8 +41,9 @@ CREATE TABLE `pets`
 (
  `id`          int NOT NULL AUTO_INCREMENT,
  `petTypeId`   int NOT NULL ,
- `employeeId` int NOT NULL ,
+ `employeeId`  int NOT NULL ,
  `name`        varchar(45) NOT NULL ,
+  `deleted`    int NOT NULL DEFAULT '0'
 
 PRIMARY KEY (`id`, `petTypeId`, `pemployeeId`),
 KEY `fkpettype` (`petTypeId`),
