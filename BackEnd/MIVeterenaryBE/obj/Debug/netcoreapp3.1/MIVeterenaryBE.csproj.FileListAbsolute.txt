@@ -16,8 +16,6 @@ C:\DANI\Otros\MIVeterinaria\MIveterinary\BackEnd\MIVeterenaryBE\bin\Debug\netcor
 C:\DANI\Otros\MIVeterinaria\MIveterinary\BackEnd\MIVeterenaryBE\obj\Debug\netcoreapp3.1\MIVeterenaryBE.dll
 C:\DANI\Otros\MIVeterinaria\MIveterinary\BackEnd\MIVeterenaryBE\obj\Debug\netcoreapp3.1\MIVeterenaryBE.pdb
 C:\DANI\Otros\MIVeterinaria\MIveterinary\BackEnd\MIVeterenaryBE\obj\Debug\netcoreapp3.1\MIVeterenaryBE.genruntimeconfig.cache
-C:\DANI\Otros\MIVeterinaria\MIveterinary\BackEnd\MIVeterenaryBE\obj\Debug\netcoreapp3.1\MIVeterenaryBE.csproj.CoreCompileInputs.cache
-C:\DANI\Otros\MIVeterinaria\MIveterinary\BackEnd\MIVeterenaryBE\obj\Debug\netcoreapp3.1\MIVeterenaryBE.MvcApplicationPartsAssemblyInfo.cache
 C:\DANI\Otros\MIVeterinaria\MIveterinary\BackEnd\MIVeterenaryBE\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
 C:\DANI\Otros\MIVeterinaria\MIveterinary\BackEnd\MIVeterenaryBE\bin\Debug\netcoreapp3.1\Google.Protobuf.dll
 C:\DANI\Otros\MIVeterinaria\MIveterinary\BackEnd\MIVeterenaryBE\bin\Debug\netcoreapp3.1\K4os.Compression.LZ4.dll
@@ -33,3 +31,5 @@ C:\DANI\Otros\MIVeterinaria\MIveterinary\BackEnd\MIVeterenaryBE\bin\Debug\netcor
 C:\DANI\Otros\MIVeterinaria\MIveterinary\BackEnd\MIVeterenaryBE\bin\Debug\netcoreapp3.1\System.Xml.XPath.XmlDocument.dll
 C:\DANI\Otros\MIVeterinaria\MIveterinary\BackEnd\MIVeterenaryBE\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\DANI\Otros\MIVeterinaria\MIveterinary\BackEnd\MIVeterenaryBE\obj\Debug\netcoreapp3.1\MIVeterenaryBE.csproj.CopyComplete
+C:\DANI\Otros\MIVeterinaria\MIveterinary\BackEnd\MIVeterenaryBE\obj\Debug\netcoreapp3.1\MIVeterenaryBE.csproj.CoreCompileInputs.cache
+C:\DANI\Otros\MIVeterinaria\MIveterinary\BackEnd\MIVeterenaryBE\obj\Debug\netcoreapp3.1\MIVeterenaryBE.MvcApplicationPartsAssemblyInfo.cache
