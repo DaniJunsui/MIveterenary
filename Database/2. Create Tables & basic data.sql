@@ -1,12 +1,7 @@
--------------------------------------------------------
-----    DATA BASE CREATION FOR MIVETERINARY APP    ----
-----         Author:  DANIEL CORTES BERNAL         ----
--------------------------------------------------------
-
--- Create DB
-
-    CREATE DATABASE MIVeterinary;
-
+-------------------------------------------------------------
+----    DATA BASE TABLE CREATION FOR MIVETERINARY APP    ----
+----             Author:  DANIEL CORTES BERNAL           ----
+-------------------------------------------------------------
 
 
 -- GENERATE TABLE PET TYPES
@@ -29,7 +24,7 @@ CREATE TABLE `employees`
  `firstName`                varchar(45) NOT NULL ,
  `lastName`                 varchar(45) NOT NULL ,
  `mediaInteractiveEmployee` tinyint(1) NOT NULL ,
- `deleted`                  int NOT NULL DEFAULT '0'
+ `deleted`                  int NOT NULL DEFAULT '0',
 
 PRIMARY KEY (`id`)
 );
@@ -43,13 +38,13 @@ CREATE TABLE `pets`
  `petTypeId`   int NOT NULL ,
  `employeeId`  int NOT NULL ,
  `name`        varchar(45) NOT NULL ,
-  `deleted`    int NOT NULL DEFAULT '0'
+  `deleted`    int NOT NULL DEFAULT '0',
 
-PRIMARY KEY (`id`, `petTypeId`, `pemployeeId`),
+PRIMARY KEY (`id`, `petTypeId`, `employeeId`),
 KEY `fkpettype` (`petTypeId`),
 CONSTRAINT `FK_Pet_Type` FOREIGN KEY `fkpettype` (`petTypeId`) REFERENCES `petTypes` (`id`),
-KEY `fkpetemployee` (`pemployeeId`),
-CONSTRAINT `FK_Pet_Employee` FOREIGN KEY `fkpetemployee` (`pemployeeId`) REFERENCES `employees` (`id`)
+KEY `fkpetemployee` (`employeeId`),
+CONSTRAINT `FK_Pet_Employee` FOREIGN KEY `fkpetemployee` (`employeeId`) REFERENCES `employees` (`id`)
 );
 
 
@@ -95,3 +90,4 @@ INSERT INTO `pettypes` (`id`, `name`) VALUES (36, 'Sugar Gliders');
 INSERT INTO `pettypes` (`id`, `name`) VALUES (37, 'Tarantula');
 INSERT INTO `pettypes` (`id`, `name`) VALUES (38, 'Turkeys');
 INSERT INTO `pettypes` (`id`, `name`) VALUES (39, 'Turtles');
+

@@ -17,7 +17,7 @@ INSERT INTO `employees` (`id`, `firstName`, `lastName`, `mediaInteractiveEmploye
 
 -- ADD SOME PETS:
 
-INSERT INTO `pets` (`id`, `petTypeId`, `pemployeeId`, `name`) VALUES 
+INSERT INTO `pets` (`id`, `petTypeId`, `employeeId`, `name`) VALUES 
 (NULL, '9', '2', 'Niebla'), 
 (NULL, '17', '4', 'Pluto'), 
 (NULL, '9', '6', 'Rex'), 

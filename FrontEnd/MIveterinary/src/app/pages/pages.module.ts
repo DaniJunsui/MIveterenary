@@ -25,7 +25,7 @@ import { PetsComponent } from './pets/pets.component';
     CommonComponentsModule,
  
     BrowserAnimationsModule,
-    ToastrModule.forRoot(), // ToastrModule added
+    ToastrModule.forRoot(), 
   ],
   declarations: [
     HomeComponent,

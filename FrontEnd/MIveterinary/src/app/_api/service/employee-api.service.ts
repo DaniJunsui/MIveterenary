@@ -3,12 +3,13 @@ import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { EmployeeModel } from './../../_models/employee.model'
-import { PetModel } from './../../_models/pet.model'
 
 @Injectable({
   providedIn: 'root',
 })
 export class EmployeeApiService {
+
+  private _ApiController = "api/employees/"; // Define the default API url
 
   constructor(
     private http: HttpClient
@@ -16,13 +17,13 @@ export class EmployeeApiService {
 
   /** Get the list of employees  */
   public getEmployees(): Observable<Array<EmployeeModel>> {
-    return this.http.get<Array<EmployeeModel>>(environment.apiServer + "api/employees")
+    return this.http.get<Array<EmployeeModel>>(environment.apiServer + this._ApiController)
   }
 
   /** Update an employee */
   public setEmployee(employee: EmployeeModel): Observable<boolean> {
     let updateResult = new Subject<boolean>();
-    let sub = this.http.put(environment.apiServer + "api/employees", employee)
+    let sub = this.http.put(environment.apiServer + this._ApiController, employee)
       .subscribe(
         (result: boolean) => { sub.unsubscribe(); updateResult.next(result) },
         err => { console.error(err) }
@@ -33,7 +34,7 @@ export class EmployeeApiService {
   /** Create new employee */
   public addEmployee(employee: EmployeeModel): Observable<EmployeeModel> {
     let updateResult = new Subject<EmployeeModel>();
-    let sub = this.http.post(environment.apiServer + "api/employees", employee)
+    let sub = this.http.post(environment.apiServer + this._ApiController, employee)
       .subscribe(
         (result: EmployeeModel) => { sub.unsubscribe(); updateResult.next(result) },
         err => { console.error(err) }
@@ -44,7 +45,7 @@ export class EmployeeApiService {
   /** Deletes an employee */
   public deleteEmployee(employeeId: number): Observable<boolean> {
     let updateResult = new Subject<boolean>();
-    let sub = this.http.delete(environment.apiServer + "api/employees/" + employeeId)
+    let sub = this.http.delete(environment.apiServer + this._ApiController + employeeId)
       .subscribe(
         (result: boolean) => { sub.unsubscribe(); updateResult.next(result) },
         err => { console.error(err) }
