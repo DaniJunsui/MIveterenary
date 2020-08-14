@@ -1,13 +1,11 @@
+import { DataManagementModel } from './_dataManagemenet.model';
 
 /** Data model: Pet (DB Table: pets) */
-export class PetModel {
-    // Database data
+export class PetModel extends DataManagementModel {
     id: number;
     petTypeId: number;
     employeeId: number;
     name: string;
-
-    // Calculated data
     petTypeName?: string;
     employeeName?: string;
 }

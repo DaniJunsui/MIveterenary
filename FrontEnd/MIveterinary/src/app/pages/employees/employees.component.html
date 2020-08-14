@@ -1,11 +1,18 @@
 <h3>List of all Employees</h3>
 
-
+<br />
 
 <div class="row">
 
     <div class="col-6 col-md-4 offset-md-1">
-        <button type="button" class="btn btn-success"> <i class="fa fa-plus-circle"></i> Add new employee</button>
+
+        <!-- Add new Employee Button -->
+        <button type="button" *ngIf="newEmployeeForm == null" class="btn btn-success" (click)="createNewEmployee()"> <i
+                class="fa fa-plus-circle"></i> Create new employee</button>
+
+        <!-- Save new employee button -->
+        <button type="button" *ngIf="newEmployeeForm != null" class="btn btn-success" (click)="saveNewEmployee()"> <i
+                class="fa fa-save"></i> Save new Employee</button>
     </div>
 
     <div class="col-6 col-md-6">
@@ -30,10 +37,10 @@
     <div class="col-12 col-md-10 offset-md-1">
 
         <!-- TABLE WITH DATA -->
-        <table class="table">
+        <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>#</th>
+                    <th>ID</th>
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>MI Employee</th>
@@ -42,24 +49,108 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="table-row" *ngFor="let emp of $employeeList | filter : 'name' : filterString; let i = index;">
-                    <th>{{emp.id}}</th>
-                    <th>{{emp.firstName}}</th>
-                    <th>{{emp.lastName}}</th>
-                    <th> <i class="fa" [ngClass]="{'fa-check-square':emp.mediaInteractiveEmployee, 
-                            'fa-square':!emp.mediaInteractiveEmployee }"></i>
+
+                <!-- ROW FOR NEW ITEMS -->
+                <tr class="table-row" *ngIf="newEmployeeForm != null">
+                    <th>##</th>
+                    <th>
+                        <input type="text" class="form-control" minlength="3" maxlength="45"
+                            [(ngModel)]="newEmployeeForm.firstName" [disabled]="newEmployeeForm._isSaving">
                     </th>
                     <th>
-                        <button type="button" class="btn btn-sm btn-primary"[disabled]="emp.numberOfPets == 0">View {{emp.numberOfPets}} Pet{{emp.numberOfPets > 1 ? 's' : ''}}</button>
+                        <input type="text" class="form-control" minlength="3" maxlength="45"
+                            [(ngModel)]="newEmployeeForm.lastName" [disabled]="newEmployeeForm._isSaving">
                     </th>
-                    <th class="table-buttons">
-                        <button type="button" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></button> &nbsp;
-                        <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+                    <th>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox"
+                                [(ngModel)]="newEmployeeForm.mediaInteractiveEmployee"
+                                [disabled]="newEmployeeForm._isSaving">
+                        </div>
                     </th>
+                    <th>
+                        &nbsp;
+                    </th>
+                    <th></th>
                 </tr>
+                <!-- / END: ROW FOR NEW ITEMS -->
 
+                <!-- List of items container -->
+                <ng-container
+                    *ngFor="let emp of $employeeList | filter : '_completeName' : filterString; let i = index;">
+
+                    <!-- ROW FOR ALL ITEMS -->
+                    <tr class="table-row" *ngIf="!emp._isEditing">
+                        <th>{{emp.id}}</th>
+                        <th>{{emp.firstName}}</th>
+                        <th>{{emp.lastName}}</th>
+                        <th> <i class="fa" [ngClass]="{'fa-check-square':emp.mediaInteractiveEmployee, 
+                            'fa-square':!emp.mediaInteractiveEmployee }"></i>
+                        </th>
+                        <th>
+                            <button type="button" class="btn btn-sm btn-primary"
+                                (click)="openEmployeePetListModal(emp);" [disabled]="emp.numberOfPets == 0">View
+                                {{emp.numberOfPets}}
+                                Pet{{emp.numberOfPets > 1 ? 's' : ''}}</button>
+                        </th>
+                        <th class="table-buttons">
+                            <!-- Main options - If remove checker is false -->
+                            <div class="main-actions" *ngIf="!emp._removeChecker">
+                                <button type="button" class="btn btn-sm btn-warning" (click)="emp._isEditing = true"><i
+                                        class="fa fa-edit"></i></button>
+                                &nbsp;
+                                <button type="button" class="btn btn-sm btn-danger"
+                                    (click)="emp._removeChecker = true"><i class="fa fa-trash"></i></button>
+                            </div>
+                            <!-- Remove check - If remove checker is true -->
+                            <div class="remove-checker" *ngIf="emp._removeChecker">
+                                <button type="button" class="btn btn-sm btn-danger"
+                                    (click)="deleteEmployee(emp.id)">YES,
+                                    sure</button> &nbsp;
+                                <button type="button" class="btn btn-sm btn-success"
+                                    (click)="emp._removeChecker = false">NO!!</button>
+                            </div>
+                        </th>
+                    </tr>
+                    <!-- / END: ROW FOR ALL ITEMS -->
+
+                    <!-- ROW FOR EDIT ITEM -->
+                    <tr class="table-row" *ngIf="emp._isEditing">
+                        <th>{{emp.id}}</th>
+                        <th>
+                            <input type="text" class="form-control" minlength="3" maxlength="45"
+                                [(ngModel)]="emp.firstName" [disabled]="emp._isSaving">
+                        </th>
+                        <th>
+                            <input type="text" class="form-control" minlength="3" maxlength="45"
+                                [(ngModel)]="emp.lastName" [disabled]="emp._isSaving">
+                        </th>
+                        <th>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox"
+                                    [(ngModel)]="emp.mediaInteractiveEmployee" [disabled]="emp._isSaving">
+                            </div>
+                        </th>
+                        <th>
+                            &nbsp;
+                        </th>
+                        <th>
+                            <button type="button" class="btn btn-sm btn-success" (click)="updateEmployee(emp)"><i
+                                    class="fa fa-check"></i>
+                                Save</button>
+                        </th>
+                    </tr>
+                    <!-- / END: ROW FOR EDIT ITEM -->
+                </ng-container>
             </tbody>
         </table>
         <!-- / END: TABLE WITH DATA -->
     </div>
 </div>
+
+<!-- EMPLOYEE PET LIST MODAL -->
+<ng-template #employeePetListModal let-modal>
+    <modal-employee-pet-list [employee]="_currentEmployeeSelected" (closeModal)="modal.close()">
+    </modal-employee-pet-list>
+</ng-template>
+<!-- / END: EMPLOYEE PET LIST MODAL -->

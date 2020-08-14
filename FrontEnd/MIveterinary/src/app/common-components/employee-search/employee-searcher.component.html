@@ -1,0 +1,2 @@
+<input type="text" class="form-control" [(ngModel)]="selectedEmployee" [ngbTypeahead]="employeeSearch" placeholder="Don't select for keep same employee"
+    [inputFormatter]="formatter" [resultFormatter]="formatter" [editable]='false' (selectItem)="employeeSelected.emit($event.item)" />

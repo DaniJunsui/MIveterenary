@@ -5,7 +5,13 @@
 <div class="row">
 
     <div class="col-6 col-md-4 offset-md-1">
-        <button type="button" class="btn btn-success"> <i class="fa fa-plus-circle"></i> Add new pet</button>
+        <!-- Add new pet Button -->
+        <button type="button" *ngIf="newPetForm == null" class="btn btn-success" (click)="createNewPet()"> <i
+                class="fa fa-plus-circle"></i> Add new pet</button>
+
+        <!-- Save new pet button -->
+        <button type="button" *ngIf="newPetForm != null" class="btn btn-success" (click)="saveNewPet()"> <i
+                class="fa fa-save"></i> Save pet</button>
     </div>
 
     <div class="col-6 col-md-6">
@@ -41,17 +47,88 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="table-row"  *ngFor="let pet of $petList | filter : 'name' : filterString;">
-                    <th>{{pet.id}}</th>
-                    <th>{{pet.name}}</th>
-                    <th>{{pet.typeName}}</th>
-                    <th>{{pet.employeeName}}</th>
-                    <th class="table-buttons">
-                        <button type="button" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></button> &nbsp;
-                        <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
-                    </th>
-                </tr>
 
+                <!-- ROW FOR NEW ITEMS -->
+                <tr class="table-row" *ngIf="newPetForm != null">
+                    <th>##</th>
+                    <th>
+                        <input type="text" class="form-control" minlength="3" maxlength="45"
+                            [(ngModel)]="newPetForm.name" [disabled]="newPetForm._isSaving">
+                    </th>
+                    <th>
+                        <select class="custom-select" [(ngModel)]="newPetForm.petTypeId">
+                            <option *ngFor="let type of $petTypeList" [value]="type.id"
+                                [attr.selected]="newPetForm.petTypeId==type.id ? true : null">
+                                {{type.name}}
+                            </option>
+                        </select>
+                    </th>
+                    <th>
+                        <employee-searcher [employeeList]="$employeeList"
+                            (employeeSelected)="employeeFound($event,null)"> </employee-searcher>
+                    </th>
+                    <th></th>
+                </tr>
+                <!-- / END: ROW FOR NEW ITEMS -->
+
+
+                <!-- List of items container -->
+                <ng-container *ngFor="let pet of $petList | filter : 'name' : filterString;">
+
+                    <!-- ROW FOR ALL ITEMS -->
+                    <tr class="table-row" *ngIf="!pet._isEditing">
+                        <th>{{pet.id}}</th>
+                        <th>{{pet.name}}</th>
+                        <th>{{pet.petTypeName}}</th>
+                        <th>{{pet.employeeName}}</th>
+                        <th class="table-buttons">
+                            <!-- Main options - If remove checker is false -->
+                            <div class="main-actions" *ngIf="!pet._removeChecker">
+                                <button type="button" class="btn btn-sm btn-warning" (click)="pet._isEditing = true"><i
+                                        class="fa fa-edit"></i></button>
+                                &nbsp;
+                                <button type="button" class="btn btn-sm btn-danger"
+                                    (click)="pet._removeChecker = true"><i class="fa fa-trash"></i></button>
+                            </div>
+                            <!-- Remove check - If remove checker is true -->
+                            <div class="remove-checker" *ngIf="pet._removeChecker">
+                                <button type="button" class="btn btn-sm btn-danger" (click)="deletePet(pet.id)">YES,
+                                    sure</button> &nbsp;
+                                <button type="button" class="btn btn-sm btn-success"
+                                    (click)="pet._removeChecker = false">NO!!</button>
+                            </div>
+                        </th>
+                    </tr>
+
+                    <!-- / END: ROW FOR ALL ITEMS -->
+
+                    <!-- ROW FOR EDIT ITEM -->
+                    <tr class="table-row" *ngIf="pet._isEditing">
+                        <th>{{pet.id}}</th>
+                        <th>
+                            <input type="text" class="form-control" minlength="3" maxlength="45" [(ngModel)]="pet.name"
+                                [disabled]="pet._isSaving">
+                        </th>
+                        <th>
+                            <select class="custom-select" [(ngModel)]="pet.petTypeId">
+                                <option *ngFor="let type of $petTypeList" [value]="type.id"
+                                    [attr.selected]="pet.petTypeId==type.id ? true : null">
+                                    {{type.name}}
+                                </option>
+                            </select>
+                        </th>
+                        <th>
+                            <employee-searcher [employeeList]="$employeeList"
+                                (employeeSelected)="employeeFound($event,pet.id)"> </employee-searcher>
+                        </th>
+
+                        <th>
+                            <button type="button" class="btn btn-sm btn-success" (click)="updatePet(pet)">
+                                <i class="fa fa-check"></i>Save</button>
+                        </th>
+                    </tr>
+                    <!-- / END: ROW FOR EDIT ITEM -->
+                </ng-container>
             </tbody>
         </table>
         <!-- / END: TABLE WITH DATA -->
